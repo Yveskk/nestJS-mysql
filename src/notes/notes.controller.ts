@@ -4,7 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
+  Put,
+  //Patch,
   Post,
 } from '@nestjs/common';
 import { ParseIntPipe } from '@nestjs/common/pipes/parse-int.pipe';
@@ -29,8 +30,8 @@ export class NotesController {
     return this.notesService.createNote(note);
   }
 
-  @Patch(':id')
-  async editNote(@Body() note: Note, @Param('id') id: number): Promise<Note> {
+  @Put(':id')
+  async editNote(@Body() note: Note, @Param('id', ParseIntPipe) id): Promise<Note> {
     const noteEdited = await this.notesService.editNote(id, note);
     return noteEdited;
   }
